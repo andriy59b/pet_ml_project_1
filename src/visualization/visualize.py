@@ -2,6 +2,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib as mpl
 from IPython.display import display 
+from cycler import cycler
+
 
 # --------------------------------------------------------------
 # Load data
@@ -33,6 +35,20 @@ for label in df["label"].unique():
 # Adjust plot settings
 # --------------------------------------------------------------
 
+colors = cycler(color=plt.get_cmap("tab10").colors)  
+
+mpl.style.use("ggplot")
+mpl.rcParams["figure.figsize"] = (20, 5)
+mpl.rcParams["axes.facecolor"] = "white"
+mpl.rcParams["axes.grid"] = True
+mpl.rcParams["grid.color"] = "lightgray"
+mpl.rcParams["axes.prop_cycle"] = colors
+mpl.rcParams["axes.linewidth"] = 1
+mpl.rcParams["xtick.color"] = "black"
+mpl.rcParams["ytick.color"] = "black"
+mpl.rcParams["font.size"] = 12
+mpl.rcParams["figure.titlesize"] = 25
+mpl.rcParams["figure.dpi"] = 100
 
 # --------------------------------------------------------------
 # Compare medium vs. heavy sets
