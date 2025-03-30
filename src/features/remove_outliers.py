@@ -214,7 +214,7 @@ for col in outlier_columns:
 # Check outliers grouped by label
 # --------------------------------------------------------------
 
-label = "bench"
+label = "dead"
 for col in outlier_columns:
     dataset = mark_outliers_iqr(df[df["label"] == label], col)
     plot_binary_outliers(dataset, col, col + "_outlier", reset_index=True)
@@ -251,9 +251,13 @@ for col in outlier_columns:
         # Update the column in the original dataframe
         outliers_removed_df.loc[(outliers_removed_df["label"] == label), col] = dataset[col]
         
-        n_outliers = len(df) - len(outliers_removed_df[col].dropna())
+        n_outliers = len(dataset) - len(dataset[col].dropna())
         print(f"Removed {n_outliers} from {col} for {label}")
+        
+outliers_removed_df.info()
 
 # --------------------------------------------------------------
 # Export new dataframe
 # --------------------------------------------------------------
+
+outliers_removed_df.to_pickle("../../data/interim/02_outliers_removed_chauvenets.pkl")
