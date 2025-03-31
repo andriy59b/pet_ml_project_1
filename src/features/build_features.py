@@ -46,10 +46,19 @@ for s in df["set"].unique():
     duration = stop - start
     df.loc[(df["set"] == s), "duration"] = duration.seconds
 
+duration_df = df.groupby(["category"])["duration"].mean()
+
+duration_df.iloc[0] / 5
+duration_df.iloc[1] / 10
+
 # --------------------------------------------------------------
 # Butterworth lowpass filter
 # --------------------------------------------------------------
 
+df_lowpass = df.copy()
+LowPass = LowPassFilter()
+
+fs = 1000/ 200
 
 # --------------------------------------------------------------
 # Principal component analysis PCA
