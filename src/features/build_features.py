@@ -33,7 +33,7 @@ df.info()
 # --------------------------------------------------------------
 
 df[df["set"] == 25]["acc_y"].plot()
-df[df["set"] == 10]["acc_y"].plot()
+df[df["set"] == 50]["acc_y"].plot()
 
 duration = df[df["set"] == 1].index[-1] - df[df["set"] == 1].index[0]
 duration.seconds
@@ -117,12 +117,32 @@ subset = df_squared[df_squared["set"] == 14]
 
 subset[["acc_r", "gyr_r"]].plot(subplots=True)
 
-df_squared
-
 # --------------------------------------------------------------
 # Temporal abstraction
 # --------------------------------------------------------------
 
+df_temporal = df_squared.copy()
+NumAbs = NumericalAbstraction()
+
+predictor_columns = predictor_columns + ["acc_r", "gyr_y"]
+
+ws = int(1000 / 200)
+
+for col in predictor_columns:
+    df_temporal = NumAbs.abstract_numerical(df_temporal, [col], ws, "mean")
+    df_temporal = NumAbs.abstract_numerical(df_temporal, [col], ws, "std")
+    
+df_temporal_list = []
+for s in df_temporal["set"].unique():
+    subset = df_temporal[df_temporal["set"] == s].copy()
+    for col in predictor_columns:
+        subset = NumAbs.abstract_numerical(subset, [col], ws, "mean")
+        subset = NumAbs.abstract_numerical(subset, [col], ws, "std")
+    df_temporal_list.append(subset)
+    
+df_temporal = pd.concat(df_temporal_list)
+
+df_temporal.info()
 
 # --------------------------------------------------------------
 # Frequency features
