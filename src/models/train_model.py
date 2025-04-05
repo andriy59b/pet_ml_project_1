@@ -331,6 +331,19 @@ plt.show()
 # Try a simpler model with the selected features
 # --------------------------------------------------------------
 
+selected_features = [
+    "acc_z_freq_0.0_Hz_ws_14",
+    "acc_x_freq_0.0_Hz_ws_14",
+    "gyr_r_freq_0.0_Hz_ws_14",
+    "acc_z",
+    "pca_1",
+    "acc_r_temp_std_ws_5",
+    "gyr_y_temp_std_ws_5",
+    "acc_z_freq_1.429_Hz_ws_14",
+    "gyr_z_freq_1.071_Hz_ws_14",
+    "gyr_x_temp_std_ws_5",
+]
+
 (
     class_train_y,
     class_test_y,
